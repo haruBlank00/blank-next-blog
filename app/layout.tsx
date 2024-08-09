@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Fira_Code } from "next/font/google";
 import "./globals.css";
-
+import { Toaster } from '@/components/ui/sonner';
 
 const fontSans = Fira_Code({
   subsets: ["latin"],
@@ -20,7 +20,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={fontSans.className}>{children}</body>
+      <body className={fontSans.className}>
+        <Toaster richColors />
+        {children}
+      </body>
     </html>
   );
 }

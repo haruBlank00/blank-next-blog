@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
 import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 const config = {
   darkMode: ["class"],
@@ -79,7 +80,11 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), addVariablesForColors],
+  plugins: [
+    require("tailwindcss-animate"),
+    addVariablesForColors,
+    new MiniCssExtractPlugin(),
+  ],
 } satisfies Config;
 
 // This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
@@ -94,4 +99,3 @@ function addVariablesForColors({ addBase, theme }: any) {
   });
 }
 export default config;
-
