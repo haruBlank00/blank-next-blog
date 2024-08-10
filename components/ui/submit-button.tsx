@@ -1,7 +1,8 @@
 'use client';
 
 import { useFormStatus } from "react-dom";
-import { Button, ButtonProps } from "./button";
+import { ButtonProps } from "./button";
+import { LoadingButton } from "./loading-button";
 
 interface SubmitButtonProps extends ButtonProps { }
 
@@ -10,7 +11,7 @@ export const SubmitButton = (props: SubmitButtonProps) => {
 
   const { pending } = useFormStatus()
 
-  return <Button {...rest} disabled={pending}>
+  return <LoadingButton pending={pending} {...rest}>
     {children}
-  </Button>
+  </LoadingButton>
 }
