@@ -8,6 +8,7 @@ import { FormEventHandler } from "react"
 import { loginUser } from "../actions";
 import { toast } from "sonner";
 import { redirect, useRouter } from "next/navigation";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export const LoginForm = () => {
 	const router = useRouter();
@@ -36,32 +37,45 @@ export const LoginForm = () => {
 
 	}
 
-	return <form method="POST" onSubmit={handleClientSubmit} className="grid gap-4">
-		<div className="grid gap-4">
-			<div className="grid gap-2">
-				<Label htmlFor="email">Email</Label>
-				<Input
-					id="email"
-					name="email"
-					type="email"
-					placeholder="m@example.com"
-					required
-				/>
-			</div>
+	return <Card className="mx-auto max-w-sm absolute z-30 dark:bg-black dark:text-neutral-100">
+		<CardHeader>
+			<CardTitle className="text-2xl">Login</CardTitle>
 
-			<div className="grid gap-2">
-				<div className="flex items-center">
-					<Label htmlFor="password">Password</Label>
-					<Link href="#" className="ml-auto inline-block text-sm underline">
-						Forgot your password?
-					</Link>
+			<CardDescription>
+				Enter your email below to login to your account
+			</CardDescription>
+		</CardHeader>
+
+		<CardContent>
+			<form method="POST" onSubmit={handleClientSubmit} className="grid gap-4">
+				<div className="grid gap-4">
+					<div className="grid gap-2">
+						<Label htmlFor="email">Email</Label>
+						<Input
+							id="email"
+							name="email"
+							type="email"
+							placeholder="m@example.com"
+							required
+						/>
+					</div>
+
+					<div className="grid gap-2">
+						<div className="flex items-center">
+							<Label htmlFor="password">Password</Label>
+							<Link href="#" className="ml-auto inline-block text-sm underline">
+								Forgot your password?
+							</Link>
+						</div>
+						<Input id="password" name="password" type="password" required placeholder="•••••••••" />
+					</div>
+
+					<SubmitButton type="submit" className="w-full" disabled={false}>
+						Login
+					</SubmitButton>
 				</div>
-				<Input id="password" name="password" type="password" required placeholder="•••••••••" />
-			</div>
+			</form>
 
-			<SubmitButton type="submit" className="w-full" disabled={false}>
-				Login
-			</SubmitButton>
-		</div>
-	</form>
+		</CardContent>
+	</Card>
 }

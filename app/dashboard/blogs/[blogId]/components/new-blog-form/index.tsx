@@ -11,13 +11,16 @@ import { nanoid } from "nanoid";
 import { InputTags } from "@/components/ui/input-tags";
 import { MultiSelector, MultiSelectorContent, MultiSelectorInput, MultiSelectorItem, MultiSelectorList, MultiSelectorTrigger } from "@/components/ui/multi-select-input";
 import { warn } from "console";
+import { useGetCategories } from "./useGetCategories";
 
 export const NewBlogForm = () => {
   const form = useForm<TFormValues>({
     resolver,
     defaultValues,
   });
+  const { } = useGetCategories()
 
+  console.log(process.env.FIREBASE_APP_ID, 'ok', 'appid')
   const ref = useRef<MDXEditorMethods>(null);
 
   const onSubmit: SubmitHandler<TFormValues> = (values) => {
