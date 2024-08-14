@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { links } from "./data";
 import { SidebarIcon } from "./sidebar-icon";
+import { DarkLightModeToggle } from "@/components/ui/dark-light-toggle";
 
 export function DashboardSidebar() {
 	const [open, setOpen] = useState(false);
@@ -14,7 +15,9 @@ export function DashboardSidebar() {
 		<Sidebar open={open} setOpen={setOpen}>
 			<SidebarBody className="justify-between gap-10">
 				<div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
-					{open ? <Logo /> : <LogoIcon />}
+					{open ? <div className="flex items-center justify-between">
+						<Logo />
+					</div> : <LogoIcon />}
 
 					<div className="mt-8 flex flex-col gap-2">
 						{links.map((link) => {
@@ -46,6 +49,7 @@ export const Logo = () => {
 			>
 				Acet Labs
 			</motion.span>
+
 		</Link>
 	);
 };

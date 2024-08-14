@@ -47,7 +47,7 @@ export const BlankBreadCrumbs = () => {
             return <React.Fragment key={item.id}>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href={item.href} className={cn('capitalize', { 'text-primary': isActive })}>
+                  <Link href={item.href} className={cn('capitalize dark:text-neutral-400', { 'text-primary dark:text-neutral-200': isActive })}>
                     {item.label}
                   </Link>
                 </BreadcrumbLink>

@@ -1,8 +1,8 @@
 import { BlankForm } from "@/components/ui/blank-form";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { defaultValues, resolver, TFormValues } from "./schema";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { defaultValues, resolver, TNewBlogValues } from "./schema";
 import { Input } from "@/components/ui/input";
-import { ChangeEvent, Suspense, useRef } from "react";
+import { Suspense, useRef } from "react";
 import BlankMdxEditor from "@/components/editor/blank-mdx-editor";
 import { MDXEditorMethods } from "@mdxeditor/editor";
 import { SubmitButton } from "@/components/ui/submit-button";
@@ -10,21 +10,30 @@ import { Button } from "@/components/ui/button";
 import { nanoid } from "nanoid";
 import { InputTags } from "@/components/ui/input-tags";
 import { MultiSelector, MultiSelectorContent, MultiSelectorInput, MultiSelectorItem, MultiSelectorList, MultiSelectorTrigger } from "@/components/ui/multi-select-input";
-import { warn } from "console";
-import { useGetCategories } from "./useGetCategories";
+import { useParams } from "next/navigation";
+import { useBlogs } from "@/app/actions/blogs/useBlogs";
+import { toast } from "sonner";
 
 export const NewBlogForm = () => {
-  const form = useForm<TFormValues>({
+  const form = useForm<TNewBlogValues>({
     resolver,
     defaultValues,
   });
-  const { } = useGetCategories()
+  const { blogId } = useParams<{ blogId: string }>()
+  const { createUpdateBlog } = useBlogs()
 
-  console.log(process.env.FIREBASE_APP_ID, 'ok', 'appid')
   const ref = useRef<MDXEditorMethods>(null);
 
-  const onSubmit: SubmitHandler<TFormValues> = (values) => {
-    console.log({ values });
+  const onSubmit: SubmitHandler<TNewBlogValues> = async (values) => {
+    const id = blogId === "new" ? nanoid() : blogId;
+    const { error, data } = await createUpdateBlog(values, id);
+
+    if (error !== null) {
+      toast.error(error.message);
+      return;
+    }
+
+    toast.success("New blog created successfully.");
   };
 
   return (
@@ -45,7 +54,7 @@ export const NewBlogForm = () => {
           name="categories"
           control={form.control}
           required
-          render={(field) => <MultiSelector values={field.value as string[]} onValuesChange={(values) => console.log({ values })} >
+          render={(field) => <MultiSelector values={field.value as string[]} onValuesChange={(values) => field.onChange(values)} >
             <MultiSelectorTrigger>
               <MultiSelectorInput placeholder="Please Select categories..." />
             </MultiSelectorTrigger>
@@ -83,6 +92,6 @@ export const NewBlogForm = () => {
           <Button variant="outline">Cancel</Button>
         </div>
       </div>
-    </BlankForm>
+    </BlankForm >
   );
 };

@@ -10,9 +10,9 @@ const formSchema = z.object({
 
 export const resolver = zodResolver(formSchema);
 
-export type TFormValues = z.infer<typeof formSchema>;
+export type TNewBlogValues = z.infer<typeof formSchema>;
 
-export const defaultValues: TFormValues = {
+export const defaultValues: TNewBlogValues = {
   title: "",
   content: "",
   tags: [],

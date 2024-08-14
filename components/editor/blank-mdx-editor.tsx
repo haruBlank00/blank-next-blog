@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from '@/lib/utils';
 import {
 	headingsPlugin,
 	listsPlugin,
@@ -26,9 +27,15 @@ import {
 	codeMirrorPlugin,
 	diffSourcePlugin
 } from '@mdxeditor/editor';
+import { useTheme } from 'next-themes';
 import { ForwardedRef } from 'react';
 
 export const BlankMdxEditor = ({ editorRef, ...props }: { editorRef?: ForwardedRef<MDXEditorMethods> | null } & MDXEditorProps) => {
+	const { theme, systemTheme } = useTheme();
+	const isDarkMode = theme === "dark" || systemTheme === "dark";
+
+	const themeClassName = isDarkMode ? 'dark-theme dark-editor' : '';
+
 	return <MDXEditor
 		plugins={
 			[
@@ -60,7 +67,7 @@ export const BlankMdxEditor = ({ editorRef, ...props }: { editorRef?: ForwardedR
 				diffSourcePlugin({ viewMode: 'rich-text', diffMarkdown: 'boo' }),
 				markdownShortcutPlugin()
 			]}
-
+		className={cn(themeClassName, 'min-h-48')}
 		{...props}
 		ref={editorRef}
 	/>
