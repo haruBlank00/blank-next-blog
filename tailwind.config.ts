@@ -3,6 +3,7 @@ import { fontFamily } from "tailwindcss/defaultTheme";
 import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import svgToDataUri from "mini-svg-data-uri";
+import typograhy from "@tailwindcss/typography";
 import colors from "tailwindcss/colors";
 
 const config = {
@@ -84,8 +85,12 @@ const config = {
   },
   plugins: [
     require("tailwindcss-animate"),
+
+    typograhy,
     addVariablesForColors,
+
     new MiniCssExtractPlugin(),
+
     function ({ matchUtilities, theme }: any) {
       matchUtilities(
         {

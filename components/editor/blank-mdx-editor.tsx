@@ -61,15 +61,19 @@ const plugins = [
 	markdownShortcutPlugin()
 ]
 
-export const BlankMdxEditor = ({ editorRef, ...props }: { editorRef?: ForwardedRef<MDXEditorMethods> | null } & MDXEditorProps) => {
+type Props = { editorRef?: ForwardedRef<MDXEditorMethods> | null } & MDXEditorProps;
+
+export const BlankMdxEditor = ({ editorRef, ...props }: Props) => {
 	const { theme, systemTheme } = useTheme();
 	const isDarkMode = theme === "dark" || systemTheme === "dark";
 
 	const themeClassName = isDarkMode ? 'dark-theme dark-editor' : '';
+	const contentEditableClassName = cn('prose dark:prose-dark min-h-47', props.contentEditableClassName)
 
 	return <MDXEditor
-		className={cn(themeClassName, 'min-h-48')}
+		className={cn(themeClassName, 'min-h-47')}
 		{...props}
+		contentEditableClassName={contentEditableClassName}
 		plugins={props.readOnly ? [] : plugins}
 		ref={editorRef}
 	/>

@@ -12,6 +12,9 @@ import { MultiSelector, MultiSelectorContent, MultiSelectorInput, MultiSelectorI
 import { useParams } from "next/navigation";
 import { useBlogs } from "@/app/actions/blogs/useBlogs";
 import { toast } from "sonner";
+import dynamic from "next/dynamic";
+
+const Editor = dynamic(() => import("@/components/editor/blank-mdx-editor"), { ssr: false });
 
 export const NewBlogForm = () => {
   const form = useForm<TNewBlogValues>({
@@ -76,7 +79,7 @@ export const NewBlogForm = () => {
           required
           render={(field) => (
             <Suspense fallback={<h1>loading...</h1>}>
-              <BlankMdxEditor
+              <Editor
                 editorRef={ref}
                 markdown={field.value as string}
                 onChange={(e) => field.onChange(e)}

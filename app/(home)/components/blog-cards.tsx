@@ -1,13 +1,18 @@
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tags } from "@/components/ui/tags";
 import { createdDate } from "@/lib/date-formatter";
 import { TBlog } from "@/types/blogs";
+import { IconEyeCode, IconMoodHeart } from "@tabler/icons-react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+import { Suspense } from "react";
+
+const Editor = dynamic(() => import("@/components/editor/blank-mdx-editor"), { ssr: false });
 
 export const BlogCards = ({ blogs }: { blogs: TBlog[] }) => {
-  return <>
+  return <div className="flex flex-col gap-4">
     {blogs.map(blog => <BlogCard key={blog.id} blog={blog} />)}
-  </>
+  </div>
 }
 
 const BlogCard = ({ blog }: { blog: TBlog }) => {
@@ -17,6 +22,7 @@ const BlogCard = ({ blog }: { blog: TBlog }) => {
 
   const href = `/blogs/${id}`;
 
+  const markdown = content.split(" ").slice(0, 10).join(" ") + "...";
   return <Link href={href}>
     <Card className="bg-neutral-900 cursor-pointer hover:translate-y-[-2px] overflow-hidden">
       <CardHeader className="p-2">
@@ -27,24 +33,27 @@ const BlogCard = ({ blog }: { blog: TBlog }) => {
             {formattedCreateDate}
           </span>
         </CardTitle>
+        <Tags tags={tags} />
       </CardHeader>
-      <div className="flex justify-between">
-
-
-      </div>
-
 
       <CardContent>
-        <ul>
-          {
-            tags.map(tag => <li key={tag}>
-              <Badge variant={'outline'}>
-                #{tag.trim()}
-              </Badge>
-            </li>)
-          }
-        </ul>
+        <Suspense fallback={null}>
+          <Editor markdown={markdown} readOnly contentEditableClassName="text-neutral-400 p-0 leading-none text-sm" className="bg-none p-0" />
+        </Suspense>
       </CardContent>
+
+      <CardFooter>
+        <ul className="flex items-center gap-4">
+          <li className="flex gap-2 items-center group">
+            <IconEyeCode className="text-neutral-400 group-hover:text-blue-400" size={24} />
+            <span className="text-neutral-400 group-hover:text-blue-400">{5}</span>
+          </li>
+          <li className="flex gap-2 items-center group">
+            <IconMoodHeart className="text-neutral-400 group-hover:text-red-400" size={24} />
+            <span className="text-neutral-400 group-hover:text-red-400">{5}</span>
+          </li>
+        </ul>
+      </CardFooter>
     </Card>
   </Link>
 }
