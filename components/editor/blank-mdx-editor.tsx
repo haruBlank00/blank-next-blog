@@ -30,6 +30,37 @@ import {
 import { useTheme } from 'next-themes';
 import { ForwardedRef } from 'react';
 
+
+const plugins = [
+	toolbarPlugin({
+		toolbarContents: () => <>
+			<BlockTypeSelect />
+			<CreateLink />
+			<BoldItalicUnderlineToggles />
+			<CodeToggle />
+			<UndoRedo />
+			<DiffSourceToggleWrapper >
+				<CreateLink />
+				<CodeToggle />
+			</DiffSourceToggleWrapper>
+			<InsertAdmonition />
+		</>
+	}),
+	listsPlugin(),
+	quotePlugin(),
+	headingsPlugin(),
+	linkPlugin(),
+	linkDialogPlugin(),
+	imagePlugin(),
+	tablePlugin(),
+	thematicBreakPlugin(),
+	frontmatterPlugin(),
+	codeBlockPlugin({ defaultCodeBlockLanguage: 'txt' }),
+	codeMirrorPlugin({ codeBlockLanguages: { js: 'JavaScript', css: 'CSS', txt: 'text', tsx: 'TypeScript' } }),
+	diffSourcePlugin({ viewMode: 'rich-text', diffMarkdown: 'boo' }),
+	markdownShortcutPlugin()
+]
+
 export const BlankMdxEditor = ({ editorRef, ...props }: { editorRef?: ForwardedRef<MDXEditorMethods> | null } & MDXEditorProps) => {
 	const { theme, systemTheme } = useTheme();
 	const isDarkMode = theme === "dark" || systemTheme === "dark";
@@ -37,38 +68,9 @@ export const BlankMdxEditor = ({ editorRef, ...props }: { editorRef?: ForwardedR
 	const themeClassName = isDarkMode ? 'dark-theme dark-editor' : '';
 
 	return <MDXEditor
-		plugins={
-			[
-				toolbarPlugin({
-					toolbarContents: () => <>
-						<BlockTypeSelect />
-						<CreateLink />
-						<BoldItalicUnderlineToggles />
-						<CodeToggle />
-						<UndoRedo />
-						<DiffSourceToggleWrapper >
-							<CreateLink />
-							<CodeToggle />
-						</DiffSourceToggleWrapper>
-						<InsertAdmonition />
-					</>
-				}),
-				listsPlugin(),
-				quotePlugin(),
-				headingsPlugin(),
-				linkPlugin(),
-				linkDialogPlugin(),
-				imagePlugin(),
-				tablePlugin(),
-				thematicBreakPlugin(),
-				frontmatterPlugin(),
-				codeBlockPlugin({ defaultCodeBlockLanguage: 'txt' }),
-				codeMirrorPlugin({ codeBlockLanguages: { js: 'JavaScript', css: 'CSS', txt: 'text', tsx: 'TypeScript' } }),
-				diffSourcePlugin({ viewMode: 'rich-text', diffMarkdown: 'boo' }),
-				markdownShortcutPlugin()
-			]}
 		className={cn(themeClassName, 'min-h-48')}
 		{...props}
+		plugins={props.readOnly ? [] : plugins}
 		ref={editorRef}
 	/>
 }

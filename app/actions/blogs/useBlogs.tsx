@@ -2,7 +2,7 @@ import { TBlog } from "@/types/blogs"
 import { createUpdate, get, getAll, remove } from "."
 
 export const useBlogs = () => {
-	const createUpdateBlog = async (data: Omit<TBlog, 'id'>, id: string) => {
+	const createUpdateBlog = async (data: Partial<TBlog>, id: string | null) => {
 		return await createUpdate(data, id);
 	}
 

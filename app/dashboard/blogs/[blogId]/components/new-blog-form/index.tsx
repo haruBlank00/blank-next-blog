@@ -7,7 +7,6 @@ import BlankMdxEditor from "@/components/editor/blank-mdx-editor";
 import { MDXEditorMethods } from "@mdxeditor/editor";
 import { SubmitButton } from "@/components/ui/submit-button";
 import { Button } from "@/components/ui/button";
-import { nanoid } from "nanoid";
 import { InputTags } from "@/components/ui/input-tags";
 import { MultiSelector, MultiSelectorContent, MultiSelectorInput, MultiSelectorItem, MultiSelectorList, MultiSelectorTrigger } from "@/components/ui/multi-select-input";
 import { useParams } from "next/navigation";
@@ -25,8 +24,8 @@ export const NewBlogForm = () => {
   const ref = useRef<MDXEditorMethods>(null);
 
   const onSubmit: SubmitHandler<TNewBlogValues> = async (values) => {
-    const id = blogId === "new" ? nanoid() : blogId;
-    const { error, data } = await createUpdateBlog(values, id);
+    const id = blogId === "new" ? null : blogId;
+    const { error } = await createUpdateBlog(values, id);
 
     if (error !== null) {
       toast.error(error.message);

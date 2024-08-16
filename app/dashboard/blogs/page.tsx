@@ -2,7 +2,6 @@ import { useBlogs } from "@/app/actions/blogs/useBlogs";
 import { Button } from "@/components/ui/button";
 import { IconPlus } from "@tabler/icons-react";
 import Link from "next/link";
-import { BlogCard, BlogCards } from "./components/blog-card";
 import { BlogListPreview } from "./components/blog-list-preview";
 
 export default async function BlogsPage() {
@@ -23,6 +22,7 @@ export default async function BlogsPage() {
 
       </Link>
     </header>
+
     <BlogListPreview blogs={data || []} />
   </>
 }

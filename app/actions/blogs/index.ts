@@ -11,17 +11,25 @@ import {
   getDoc,
   getDocs,
   setDoc,
+  Timestamp,
 } from "firebase/firestore";
+import { nanoid } from "nanoid";
 
 export const createUpdate = async (
-  props: Omit<TBlog, "id">,
-  docId: string,
+  props: Partial<TBlog>,
+  docId: string | null,
 ): Promise<TResponse<{ id: string }>> => {
-  const docRef = doc(db, firebaseRef.blogs, docId);
+  const id = docId || nanoid();
+  const docRef = doc(db, firebaseRef.blogs, id);
 
   try {
-    await setDoc(docRef, props);
-    const { tags, categories, title, content } = props;
+    const dataToSave = {
+      ...props,
+      updatedAt: Timestamp.now(),
+      ...(!docId ? { createdAt: Timestamp.now() } : {}),
+    };
+    await setDoc(docRef, dataToSave);
+
     return {
       data: {
         id: docRef.id,

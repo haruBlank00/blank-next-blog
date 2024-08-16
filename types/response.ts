@@ -1,4 +1,9 @@
-export type TResponse<T, E = Error> = {
-  data: T | null;
-  error: Partial<E> | null;
-};
+export type TResponse<T, E = Error> =
+  | {
+      data: T;
+      error: null;
+    }
+  | {
+      data: null;
+      error: Partial<E>;
+    };
