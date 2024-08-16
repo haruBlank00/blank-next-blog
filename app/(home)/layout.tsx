@@ -8,7 +8,9 @@ import { StarsBackground } from "@/components/ui/stars-background";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <GridSmallBackground>
-      <div className="flex flex-col max-w-4xl mx-auto min-h-screen">
+      <ShootingStars />
+      <StarsBackground />
+      <div className="flex flex-col max-w-4xl mx-auto min-h-screen relative z-50">
         <NavBar />
 
         {children}
