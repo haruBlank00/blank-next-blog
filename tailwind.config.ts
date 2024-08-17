@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
+// @ts-ignore
 import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import svgToDataUri from "mini-svg-data-uri";
