@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react"
 import { Fira_Code } from "next/font/google";
 import "./globals.css";
 import { Toaster } from '@/components/ui/sonner';
@@ -61,6 +62,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={fontSans.className}>
+        <Analytics />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <Toaster richColors />
           {children}
