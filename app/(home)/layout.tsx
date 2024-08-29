@@ -22,9 +22,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <Typography.H3 className="text-neutral-700 text-base dark:text-neutral-200 text-center">Made with ❤️ by <Link href="https://github.com/iamkushal" className="hover:underline">Haru</Link></Typography.H3>
           </footer>
         </div>
-
       </GridSmallBackground>
-
     </Suspense>
   )
 }

@@ -3,7 +3,9 @@ import { Tags } from "@/components/ui/tags";
 import Typography from "@/components/ui/typography";
 import { createdDate } from "@/lib/date-formatter";
 import dynamic from "next/dynamic";
+import Script from "next/script";
 import { Suspense } from "react";
+import { GiscusComments } from "./components/giscus-comments";
 
 const Editor = dynamic(() => import("@/components/editor/blank-mdx-editor"), { ssr: false });
 
@@ -38,6 +40,7 @@ export default async function BlogPage({ params }: { params: { blogId: string } 
 
 		<Suspense fallback={<div className="text-white">Loading...</div>}>
 			<Editor markdown={content} readOnly className="bg-none p-0" contentEditableClassName="dark:text-neutral-400 px-0" />
+			<GiscusComments />
 		</Suspense>
 
 	</div>

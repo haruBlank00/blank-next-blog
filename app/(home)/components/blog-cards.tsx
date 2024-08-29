@@ -24,12 +24,12 @@ const BlogCard = ({ blog }: { blog: TBlog }) => {
 
   const markdown = content.split(" ").slice(0, 10).join(" ") + "...";
   return <Link href={href}>
-    <Card className="bg-neutral-900 cursor-pointer hover:translate-y-[-2px] overflow-hidden">
+    <Card className="dark:bg-neutral-900 cursor-pointer hover:translate-y-[-2px] overflow-hidden">
       <CardHeader className="p-2">
         <CardTitle className="flex justify-between">
-          <span className="p-4 capitalize w-full border-none text-neutral-100">{title}</span>
+          <span className="p-4 capitalize w-full border-none dark:text-neutral-100">{title}</span>
 
-          <span className="p-4 text-nowrap text-neutral-400">
+          <span className="p-4 text-nowrap dark:text-neutral-400">
             {formattedCreateDate}
           </span>
         </CardTitle>
@@ -38,19 +38,19 @@ const BlogCard = ({ blog }: { blog: TBlog }) => {
 
       <CardContent>
         <Suspense fallback={null}>
-          <Editor markdown={markdown} readOnly contentEditableClassName="text-neutral-400 p-0 leading-none text-sm" className="bg-none p-0" />
+          <Editor markdown={markdown} readOnly contentEditableClassName="dark:text-neutral-400 p-0 leading-none text-sm" className="bg-none p-0" />
         </Suspense>
       </CardContent>
 
       <CardFooter>
         <ul className="flex items-center gap-4">
           <li className="flex gap-2 items-center group">
-            <IconEyeCode className="text-neutral-400 group-hover:text-blue-400" size={24} />
-            <span className="text-neutral-400 group-hover:text-blue-400">{5}</span>
+            <IconEyeCode className="dark:text-neutral-400 group-hover:text-blue-400" size={24} />
+            <span className="dark:text-neutral-400 group-hover:text-blue-400">{5}</span>
           </li>
           <li className="flex gap-2 items-center group">
-            <IconMoodHeart className="text-neutral-400 group-hover:text-red-400" size={24} />
-            <span className="text-neutral-400 group-hover:text-red-400">{5}</span>
+            <IconMoodHeart className="dark:text-neutral-400 group-hover:text-red-400" size={24} />
+            <span className="dark:text-neutral-400 group-hover:text-red-400">{5}</span>
           </li>
         </ul>
       </CardFooter>
