@@ -10,7 +10,7 @@ const baseLoggerConfig = {
   ),
 };
 
-const prodLogger = winston.createLogger({
+/* const prodLogger = winston.createLogger({
   ...baseLoggerConfig,
   transports: [
     new DailyRotateFile({
@@ -36,6 +36,10 @@ const prodLogger = winston.createLogger({
       ),
     }),
   ],
+}); */
+const prodLogger = winston.createLogger({
+  ...baseLoggerConfig,
+  transports: [new winston.transports.Console()],
 });
 
 const devLogger = winston.createLogger({
